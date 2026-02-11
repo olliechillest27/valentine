@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For Feven ❤️</title>
+<style>
+body{
+  font-family: "Comic Sans MS", cursive;
+  text-align:center;
+  margin-top:80px;
+  background: linear-gradient(to bottom,#fff,#ffe6e6);
+}
+h1{
+  color:#ff3366;
+}
+img{
+  width:180px;
+  margin:10px;
+}
+button{
+  font-size:22px;
+  padding:12px 25px;
+  margin:15px;
+  border:none;
+  border-radius:15px;
+  cursor:pointer;
+  transition:.2s;
+}
+#yes{
+  background:#ff4d6d;
+  color:white;
+}
+#no{
+  background:#eee;
+}
+.flowers{
+  font-size:40px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="flowers">🌹🤍🌹🤍🌹</div>
+
+<h1>Feven, will you be my Valentine? 🥺</h1>
+
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+
+<br>
+
+<button id="yes">Yes 💖</button>
+<button id="no">No 🙈</button>
+
+<script>
+let yes=document.getElementById("yes");
+let no=document.getElementById("no");
+let size=22;
+
+no.onclick=function(){
+  size+=10;
+  yes.style.fontSize=size+"px";
+  no.style.fontSize=(size/3)+"px";
+}
+
+yes.onclick=function(){
+  document.body.innerHTML=
+  "<h1 style='color:#ff3366'>YAY Feven is my Valentine now ❤️🌹</h1><img src='https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif'>";
+}
+</script>
+
+</body>
+</html>
