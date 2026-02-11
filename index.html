@@ -1,71 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>For Feven ❤️</title>
+<meta charset="UTF-8">
+<title>For Fevi ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <style>
-body{
-  font-family: "Comic Sans MS", cursive;
+*{margin:0;padding:0;box-sizing:border-box;}
+html, body{
+  width:100vw;
+  height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"San Francisco",Arial;
+  background:#fff;
+  overflow:hidden;
+  position:relative;
+  transition: background-color 0.3s ease;
+}
+
+/* Border flashing lights */
+.border{
+  position:fixed;
+  inset:0;
+  border:10px solid red;
+  animation:flash 1s infinite alternate;
+  pointer-events:none;
+  z-index:9999;
+}
+
+@keyframes flash{
+  0%{border-color:red;}
+  50%{border-color:pink;}
+  100%{border-color:red;}
+}
+
+/* Container */
+.container{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-  margin-top:80px;
-  background: linear-gradient(to bottom,#fff,#ffe6e6);
+  padding:20px;
 }
+
 h1{
-  color:#ff3366;
+  color:#e60026;
+  font-size:2rem;
+  margin-bottom:40px;
+  transition: 0.5s ease;
 }
-img{
-  width:180px;
-  margin:10px;
+
+.buttons{
+  display:flex;
+  gap:20px;
 }
+
 button{
-  font-size:22px;
-  padding:12px 25px;
-  margin:15px;
   border:none;
-  border-radius:15px;
+  border-radius:50px;
+  padding:16px 30px;
+  font-size:1.3rem;
   cursor:pointer;
-  transition:.2s;
+  transition:0.3s ease;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
+
+button:hover{
+  transform:scale(1.1) rotate(-2deg);
+}
+
 #yes{
-  background:#ff4d6d;
+  background:#e60026;
   color:white;
 }
+
 #no{
-  background:#eee;
+  background:#ddd;
 }
-.flowers{
-  font-size:40px;
+
+/* Heartbeat animation */
+@keyframes heartbeat{
+  0%,100%{transform: scale(1);}
+  50%{transform: scale(1.2);}
+}
+
+/* Final text */
+.finalText{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:2.5rem;
+  color:white;
+  flex-direction:column;
+  z-index:99999;
+  opacity:0;
+  transition: opacity 0.5s ease;
+}
+
+/* iPhone popup */
+.ios{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:360px;
+  background:rgba(245,245,247,0.95);
+  backdrop-filter:blur(20px);
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  z-index:100000;
+  text-align:left;
+  opacity:0;
+  transition:0.5s ease;
 }
 </style>
 </head>
-
 <body>
 
-<div class="flowers">🌹🤍🌹🤍🌹</div>
+<div class="border"></div>
 
-<h1>Feven, will you be my Valentine? 🥺</h1>
-
-<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
-
-<br>
-
-<button id="yes">Yes 💖</button>
-<button id="no">No 🙈</button>
+<div class="container">
+  <h1>Would you be my Valentine, Fevi? ❤️</h1>
+  <div class="buttons">
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 💔</button>
+  </div>
+</div>
 
 <script>
-let yes=document.getElementById("yes");
-let no=document.getElementById("no");
-let size=22;
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const container = document.querySelector(".container");
+let noCount = 0;
 
-no.onclick=function(){
-  size+=10;
-  yes.style.fontSize=size+"px";
-  no.style.fontSize=(size/3)+"px";
-}
+/* No button click logic */
+no.onclick = () => {
+  noCount++;
+  no.style.transform = `scale(${Math.max(0, 1 - noCount*0.12)}) rotate(${noCount*15}deg)`;
+  yes.style.transform = `scale(${1 + noCount*0.1})`; // small growth
 
-yes.onclick=function(){
-  document.body.innerHTML=
-  "<h1 style='color:#ff3366'>YAY Feven is my Valentine now ❤️🌹</h1><img src='https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif'>";
-}
+  if(noCount >=5){
+    no.style.display="none";
+    // Heartbeat effect
+    yes.style.animation="heartbeat 1s infinite";
+  }
+};
+
+/* Yes button click */
+yes.onclick = () => {
+  // Hide the container
+  container.style.display="none";
+
+  // Show final text
+  const finalText = document.createElement("div");
+  finalText.className="finalText";
+  finalText.innerHTML="You are now my Valentine ❤️";
+  document.body.appendChild(finalText);
+  setTimeout(()=>{ finalText.style.opacity=1; }, 50);
+
+  // Party lights: alternate red and pink rapidly
+  let colors=["#ff0000","#ff99cc"];
+  let i=0;
+  const party = setInterval(()=>{
+    document.body.style.backgroundColor = colors[i%colors.length];
+    i++;
+  }, 300);
+
+  // Stop party after 15 seconds
+  setTimeout(()=>clearInterval(party),15000);
+
+  // iPhone-style popup after 5 seconds
+  setTimeout(()=>{
+    const pop = document.createElement("div");
+    pop.className="ios";
+    pop.style.opacity=1;
+    pop.innerHTML="<strong>Messages</strong><br><b>Ollie ❤️</b><br>I love you baby ❤️";
+    document.body.appendChild(pop);
+    // Remove popup after 8 seconds
+    setTimeout(()=>pop.remove(),8000);
+  },5000);
+};
 </script>
 
 </body>
